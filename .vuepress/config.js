@@ -35,7 +35,16 @@ module.exports = {
       ],
     ],
   },
-  title: 'Vue Vixens Workshops',
-  description:
-    'Workshops to teach web and mobile development with Vue.js to beginners',
+  locales: {
+    '/': {
+      lang: 'en-US',
+      title: 'Vue Vixens Workshops',
+      description: 'Workshops to teach web and mobile development with Vue.js to beginners',
+    },
+    '/pt_br/': {
+      lang: 'pt-BR',
+      title: 'Vue Vixens Workshops',
+      description: 'Workshops preparados para ensinar desenvolvimento web e mobile com Vue.js para iniciantes',
+    }
+  }
 };
