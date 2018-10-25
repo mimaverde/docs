@@ -1,26 +1,30 @@
 # 📋 Chapter 1: Introducing the My Pet Shop Web App
 
-| **Project Goal**            | Get started with Vue.js by creating a static Pet Shop web app                                                                                                                                   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **What you’ll learn**       | Setting up your Vue app, CSS Grid, Styling in Vue, code structure in preparation for moving forward.                                                                                             |
-| **Tools you’ll need**       | A modern browser like Chrome. If using Chrome, download Chrome DevTools for Vue.js. An account in CodeSandbox.io. |
-| **Time needed to complete** | 1/2 hour                                                                                                                                                                                         |
+| **Objetivo do projeto**| Ter o primeiro contato com Vue.js, criando uma aplicação estática para uma Pet Shop|
+| --------------------------- | -------------------------- |
+| **O que você irá aprender**| Configurar sua aplicação Vue, utilizar CSS Grid, estilizar sua aplicação, preparar a estrutura do seu código para seguirmos adiante.|
+| **Ferramentas que você irá usar**| Um navegador moderno como o Google Chrome. Caso esteja usando o Chrome, instale a extensão Vue.js DevTools. Uma conta em CodeSandbox.io. |
+| **Tempo estimado** | 1/2 hora|
 
-## Instructions
+## Instruções
 
 Since this is the very first Vue.js web project we're going to make, we'll start from scratch in [Code Sandbox](http://codesandbox.io). Create a Code Sandbox account and scaffold a starter Vue.js template by clicking [here](https://codesandbox.io/s/vue).
 
 We're going to build a storefront for a fictional Pet Shop that will look like this:
 
+Como esse é o primeiro projeto em Vue.js que vamos fazer, começaremos do zero no [Code Sandbox](http://codesandbox.io). Crie uma conta do Code Sandbox e inicialize um modelo em Vue.js clicando [aqui](https://codesandbox.io/s/vue).
+
+Nós vamos construir uma loja para um Pet Shop fictício que ficará assim:
+
 ![pet store](./images/petshop_chapter1_1.jpg)
 
-In addition, we're going to create a switch that will change the look of the shop to resemble this:
+Além disso, vamos criar um botão que mudará a aparência da loja para se assemelhar a isso:
 
 ![pet store](./images/petshop_chapter1_2.jpg)
 
-Take a look at the code that was scaffolded by Code Sandbox for a basic Vue.js app. The first file you'll see is open by default: `main.js`. This is the main starting point of a Vue.js app. Note that in this file you import Vue from its npm package: `import Vue from "vue";`. Code Sandbox imports all the needed dependencies from npm to build the app; you can always check out the root `package.json` to find out which dependencies are needed.
+Dê uma olhada no código que foi criado pelo Code Sandbox. O primeiro arquivo que você verá é aberto por padrão: `main.js`. Este é o principal ponto de partida de uma aplicação Vue.js. Note que neste arquivo você importa o Vue do pacote npm: `import Vue from "vue";`. O Code Sandbox importa todas as dependências necessárias do npm para construir o aplicativo; você sempre pode verificar o arquivo `package.json` para descobrir quais dependências são necessárias.
 
-`main.js` also initializes the app as a new Vue.js app and sets the div into which the app code will be injected. It also names the main component and sets the template's name:
+O `main.js` também inicializa a aplicação como uma nova instância Vue.js e define a div na qual o código do aplicativo será injetado. Ele também nomeia o componente principal e define o nome do modelo:
 
 ```js
 new Vue({
@@ -30,17 +34,19 @@ new Vue({
 });
 ```
 
-Open up `App.vue`. In this file, the 'home' component is built. It contains the three main parts of a Vue.js Single File Component (SFC): a template, a script block, and a style block.
+Abra o arquivo `App.vue`. Neste arquivo, o componente 'home' é construído. Ele contém as três partes principais de um Componente de Arquivo Único (Single File Component, ou SFC) do Vue.js: um template, um bloco de script e um bloco de estilo.
 
-Note the first div in the template block has the id of 'app' - this is the div where the app code will be injected. There's also a `<HelloWorld>` component included underneath the logo image. This is an example of an SFC being included into `App.vue`.
+Observe que a primeira div no template tem o id 'app' - essa é a div em que o código do aplicativo será injetado. Há também um componente `<HelloWorld>` incluído abaixo da imagem do logotipo. Este é um exemplo de um SFC sendo incluído no `App.vue`.
 
-Open `components/HelloWorld.vue` and you'll find the source of the list of links that appears embedded in `App.vue`. This file also includes a script block with a `msg` variable and some more styles in a `<style>` block.
+Abra `components/HelloWorld.vue` e você encontrará a origem da lista de links que aparece incorporada no `App.vue`. Este arquivo também inclui um bloco de script com uma variável `msg` e mais alguns estilos em um bloco `<style>`.
 
-We're going to rip this sample app apart and recreate it! Let's get started.
+Vamos remover este aplicativo de exemplo e recriá-lo! Vamos começar!
 
-## Build the Styles
+## Criando os Estilos
 
 Let's start in `App.vue`, since we don't have to make any changes to `main.js`. Add the following style block at the bottom of the file, replacing the current `<style scoped>` block:
+
+Vamos começar no arquivo `App.vue`, já que não precisamos fazer nenhuma alteração no `main.js`. Adicione o seguinte bloco de estilo na parte inferior do arquivo, substituindo o atual bloco `<style scoped>`:
 
 ```scss
 	<style lang="scss">
@@ -188,29 +194,29 @@ Let's start in `App.vue`, since we don't have to make any changes to `main.js`. 
 	</style>
 ```
 
-::: tip 💡
-Notice we don't use `<scoped>` as part of the style block. The 'scoped' keyword ensures that your styles will remain valid only for the current SFC, and we're going to make these styles universal. We did specify that we are using Sass, however, a method of making your css easier to manage. Learn more [here](http://www.sass-lang.com).
+::: Dica 💡
+Note que não usamos `<scoped>` como parte do bloco de estilo. A palavra-chave "scoped" define que seus estilos permanecerão válidos apenas para o componente atual, mas nós queremos fazer esses novos estilos universais. Nós especificamos que estamos usando o Sass, utilizando `lang="scss"`, um método para tornar seu css mais fácil de gerenciar. Saiba mais [aqui](http://www.sass-lang.com).
 :::
 
-This style block includes a few surprising things:
+Este bloco de estilo inclui algumas coisas surpreendentes:
 
-- It uses paths to external images hosted on Github, rather than relative paths. This is because Code Sandbox doesn't host images; normally you'll just add an image on a relative path such as `/images/myImage.png`.
-- There is some funny 'grid' stuff going on. This style sheet and the template we will build make use of CSS Grid, a new way of making flexible, responsive 'masonry' layouts like this one with stacked 'blocks' of content. Learn more about CSS Grid [here](https://css-tricks.com/snippets/css/complete-guide-grid/).
-- There are two style sheets! Or at least two style patterns. One has a green theme, the other is orange. We'll make use of this soon.
+- Ele usa caminhos para imagens externas hospedadas no Github, em vez de caminhos relativos. Isso ocorre porque o Code Sandbox não hospeda imagens - normalmente você apenas adiciona uma imagem em uma pasta e adiciona ao projeto com um caminho relativo como `/images/myImage.png`.
+- Esse CSS e o template que criaremos fazem uso do CSS Grid, uma nova maneira de criar layouts de "mosaico" flexíveis e responsivos como este, com blocos de conteúdo empilhados. Saiba mais sobre o CSS Grid [aqui](https://css-tricks.com/snippets/css/complete-guide-grid/).
+- Existem duas variações de estilo! Um tem o tema verde, o outro é laranja. Nós vamos fazer uso disso em breve.
 
-Adding the style sheet didn't do much to our template except make the `<li>` group look strange. Let's fix the template!
+Adicionar a declaração de estilo não mudou muito no nosso template, exceto fazer os elementos `<li>` parecerem estranhos. Vamos consertar o template!
 
-## Install Vuetify
+## Instalando o Vuetify
 
-Before we edit the template, we're going to install Vuetify. Vuetify is a cool library that gives a Material Design styling to your Vue apps. In this chapter, we're only going to use it to create a switch, but we'll use it more in future chapters.
+Antes de editarmos o modelo, vamos instalar o Vuetify. O Vuetify é uma biblioteca bacana que aplica o [Material Design](https://material.io/design/) aos seus aplicativos Vue. Neste capítulo, vamos usá-lo apenas para criar um botão, mas vamos usá-lo mais em capítulos futuros.
 
 ::: tip 💡
-Vuetify is a semantic component framework for Vue. It aims to provide clean, semantic and reusable components for building your application. You can find full documentation for it [here](https://vuetifyjs.com/en/getting-started/quick-start)
+Vuetify é um framework de componentes para o Vue. O objetivo é fornecer componentes limpos, semânticos e reutilizáveis ​​para criar sua aplicação. Você pode encontrar toda a documentação [aqui](https://vuetifyjs.com/en/getting-started/quick-start)
 :::
 
-Install it by clicking the 'Add Dependency' button in the Dependency dropdown area on the left in Code Sandbox. Search for 'Vuetify' and install it.
+Para instalá-lo, clique no botão "Adicionar dependência" no dropdown "Dependências" à esquerda no Code Sandbox. Pesquise por 'Vuetify' e instale-o.
 
-Check whether the dependency is installed by opening `package.json` and checking the "dependencies" object. It should look like this:
+Verifique se a dependência está instalada abrindo o `package.json` e verificando o objeto "dependencies". Deve ficar assim:
 
 ```json
 "dependencies": {
@@ -219,7 +225,7 @@ Check whether the dependency is installed by opening `package.json` and checking
 },
 ```
 
-Next, initialize Vuetify by opening `main.js` and adding these lines under the second `import`:
+A seguir, inicialize o Vuetify abrindo o arquivo `main.js` e acrescentando estas linhas abaixo do segundo `import`:
 
 ```js
 import Vuetify from "vuetify";
@@ -227,9 +233,9 @@ import Vuetify from "vuetify";
 Vue.use(Vuetify);
 ```
 
-This ensures that Vuetify's themes and components will be available throughout the Vue app.
+Isso garante que os temas e componentes do Vuetify estejam disponíveis em toda aplicação Vue.
 
-Then, overwrite the current template in `App.vue` with this markup:
+Em seguida, sobrescreva o modelo atual em `App.vue` com esta marcação:
 
 ```html
 <template>
@@ -286,27 +292,27 @@ Then, overwrite the current template in `App.vue` with this markup:
 </template>
 ```
 
-Wow, that made a big change! Suddenly, you have a storefront!
+Uau, isso deu uma grande diferença! De repente, agora você tem uma loja!
 
-::: tip 💡
-Note the use of `<v-app>` - this is a requirement of Vuetify and is a sure sign you'll have a Vuetify-themed app.
+::: Dica 💡
+Observe o uso da tag `<v-app>` - este é um requisito do Vuetify e é um sinal de que você terá um aplicativo com um tema do Vuetify.
 :::
 
-Now we're going to actually use that Vuetify theme by creating a switch. Pressing this switch will trigger a theme switch, so you'll use the 'orange' theme you saw in the styles.
+Agora vamos realmente usar esse tema do Vuetify criando um switch (um botão com dois estados). Pressionar esse botão acionará uma mudança de tema para o tema "laranja" que viu nos estilos.
 
-- You might see the `orange-green` class in stylesheet. Let's add it to the `<main>` element and observe how all the colors & background are changed:
+- Temos a classe `orange-green` no nosso CSS. Vamos adicioná-la ao elemento `<main>` e observar como todas as cores e o plano de fundo são alterados:
     ```html
     <main class="orange-green">
     ```
-- Now let's try to change the class using Vue class bindings. Replace that simple class in `<main>` with a dynamic class binding:
+- Agora vamos tentar mudar a classe usando as interligações do Vue. Substitua essa classe simples em `<main>` por uma interligação dinâmica:
 
 ```html
 <main :class="{'orange-green': false}">
 ```
 
-Try to change `false` to `true` and vice versa. You can see how class is applied in Chrome dev tools and how the page color theme is changing.
+Experimente trocar `false` para `true` e vice-versa. Você pode ver como a classe é aplicada na extensão Vue.js DevTools no Chrome e como o tema de cores da página está mudando.
 
-- Get excited! It's time to create your first Vue variable. First, you have to add `data()` to your Vue component. This function  should return an object of our Vue variables. Let's create one in the `<script>` block. Overwrite the current `<script>` block:
+- Agora é hora de criar sua primeira variável Vue. Primeiro, você precisa adicionar `data ()` ao seu componente Vue. Esta função deve retornar um objeto de nossas variáveis ​​Vue. Vamos criar um no bloco `<script>`. Sobrescreva o bloco `<script>` atual:
 
 ```js
 <script>
@@ -321,21 +327,21 @@ export default {
 </script>
 ```
 
-::: tip 💡
-At this point you can remove the HelloWorld.vue component from the `views` folder as we won't need it.
+::: dica 💡
+Neste ponto, você pode remover o componente `HelloWorld.vue` da pasta `views`, já que não precisaremos mais dele.
 :::
 
-So, now you have a variable called `themeSwitched` and its default value is `false`.
+Então, agora você tem uma variável chamada `themeSwitched` e seu valor padrão é `false`.
 
-- In the `<main>` tag, replace `false` in the class binding with our newly created variable:
+- Na tag `<main>`, substitua `false` na interligação de classe pela nossa variável recém-criada:
 
 ```html
 <main :class="{'orange-green': themeSwitched}">
 ```
 
-- Change `themeSwitched` value inside `data` from `false` to `true`. Again, you can see the color change effect.
+- Altere o valor da variável `themeSwitched` dentro de `data` de `false` para `true`. Mais uma vez, você pode ver o efeito de mudança de cor.
 
-- Now we only need a switch to change a theme. First we will create a button (we're using Vuetify so it will be a Vuetify button component). Let's place it in the `header` right after the `h1` tag:
+- Agora só precisamos de um "interruptor" para mudar o tema. Primeiro vamos criar um botão (iremos utilizar o Vuetify para isso). Vamos colocá-lo no cabeçalho logo após a tag `h1`:
 
 ```html
 <header class="app-header dark-brown">
@@ -344,23 +350,23 @@ So, now you have a variable called `themeSwitched` and its default value is `fal
 </header>
 ```
 
-- Now add a click event handler to our button. We can use `v-on` directive or its shortcut `@`. This handler will change `themeSwitched` value to its opposite value, toggling the color-changing class.
+- Agora vamos adicionar um manipulador de eventos de clique ao nosso botão. Podemos usar a diretiva `v-on` ou seu atalho `@ `. Este manipulador irá trocar o valor de `themeSwitched`, alternando a classe de mudança de cor.
 
     ```html
     <v-btn @click="themeSwitched = !themeSwitched">Switch theme</v-btn>
     ```
 
-You might have noticed that the button looks a little small. To fix this, add Vuetify style sheets in `index.html`:
+Você deve ter notado que o botão parece um pouco pequeno. Para corrigir isso, adicione o CSS específico do Vuetify em `index.html`:
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/vuetify@1.0.9/dist/vuetify.min.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
 ```
 
-Test your application by clicking the button. Looks nice, right?
+Teste seu aplicativo clicando no botão. Bem legal, não?
 
-**Congratulations! You've just finished Chapter 1!**
+**Parabéns! Você acabou de terminar o capítulo 1!**
 
-# Final result
+# Resultado final
 ![final result chapter 1](./images/petshop_chapter1_1.jpg)
 
