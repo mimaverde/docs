@@ -5,12 +5,14 @@ module.exports = {
     editLinks: true,
     // custom text for edit link. Defaults to "Edit this page"
     editLinkText: 'Help us improve this page!',
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Team', link: 'http://www.vuevixens.org' },
-      { text: 'Code of Conduct', link: '/workshop/CODE_OF_CONDUCT' },
-    ],
-    sidebar: [
+    locales: {
+      '/': {
+        nav: [
+          { text: 'Home', link: '/' },
+          { text: 'Team', link: 'http://www.vuevixens.org' },
+          { text: 'Code of Conduct', link: '/workshop/CODE_OF_CONDUCT' },
+        ],
+        sidebar: [
       '/workshop/',
       ['/workshop/ch1', '🐶 Chapter 1: Introducing the My Pet Shop Web App'],
       ['/workshop/ch2', '🐶 Chapter 2: Build a Pet Gallery'],
@@ -34,6 +36,21 @@ module.exports = {
         '🌈 Mini Workshop 3: Build A Rainbow/Unicorn App that Lights up a Photon!',
       ],
     ],
+      },
+      '/pt_br/': {
+        nav: [
+          { text: 'Página Inicial', link: '/pt_br/' },
+          { text: 'Time', link: 'http://www.vuevixens.org' },
+          { text: 'Código de Conduta', link: '/pt_br/workshop/CODE_OF_CONDUCT' },
+        ],
+        sidebar: [
+          '/pt_br/workshop/',
+          ['/pt_br/workshop/ch1', '🐶 Capítulo 1: Apresentando a "My Pet Shop Web App"'],
+          ['/pt_br/workshop/ch2', '🐶 Capítulo 2: Construindo uma galeria de pets'],
+          ['/pt_br/workshop/ch3', '🐶 Capítulo 3: Conectando seu projeto a uma API']
+        ],
+      }
+    }
   },
   locales: {
     '/': {
