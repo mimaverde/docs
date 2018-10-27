@@ -1,4 +1,4 @@
-# 📋 Chapter 1: Introducing the My Pet Shop Web App
+# 📋 Capítulo 1: Apresentando a "My Pet Shop Web App"
 
 | **Objetivo do projeto**| Ter o primeiro contato com Vue.js, criando uma aplicação estática para uma Pet Shop|
 | --------------------------- | -------------------------- |
@@ -7,10 +7,6 @@
 | **Tempo estimado** | 1/2 hora|
 
 ## Instruções
-
-Since this is the very first Vue.js web project we're going to make, we'll start from scratch in [Code Sandbox](http://codesandbox.io). Create a Code Sandbox account and scaffold a starter Vue.js template by clicking [here](https://codesandbox.io/s/vue).
-
-We're going to build a storefront for a fictional Pet Shop that will look like this:
 
 Como esse é o primeiro projeto em Vue.js que vamos fazer, começaremos do zero no [Code Sandbox](http://codesandbox.io). Crie uma conta do Code Sandbox e inicialize um modelo em Vue.js clicando [aqui](https://codesandbox.io/s/vue).
 
@@ -43,8 +39,6 @@ Abra `components/HelloWorld.vue` e você encontrará a origem da lista de links 
 Vamos remover este aplicativo de exemplo e recriá-lo! Vamos começar!
 
 ## Criando os Estilos
-
-Let's start in `App.vue`, since we don't have to make any changes to `main.js`. Add the following style block at the bottom of the file, replacing the current `<style scoped>` block:
 
 Vamos começar no arquivo `App.vue`, já que não precisamos fazer nenhuma alteração no `main.js`. Adicione o seguinte bloco de estilo na parte inferior do arquivo, substituindo o atual bloco `<style scoped>`:
 
