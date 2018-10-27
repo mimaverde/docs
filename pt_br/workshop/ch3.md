@@ -1,60 +1,60 @@
 # 📋 Chapter 3: Connect your Project to an API
 
-| **Project&nbsp;Goal** | Learn how API calls work and how to implement them in your web app                                                                                                                                  |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **What&nbsp;you’ll&nbsp;learn**       | Using the [DogCEO API](https://dog.ceo/dog-api/) you will load dog images dynamically, instead of using dummy data                                                                                             |
-| **Tools&nbsp;you’ll&nbsp;need**       | A modern browser like Chrome. If using Chrome, download Chrome DevTools for Vue.js. An account in CodeSandbox.io. If you get lost, import the starting point for this chapter [here](https://github.com/VueVixens/projects/tree/master/chapter-2-end). Instructions on how to do this are in [Appendix 1](appendix_1.md) |
-| **Time needed to complete** | 1 hour
+| **Objetivo do projeto**| Aprender como uma API funciona e como usar em nosso projeto.|
+| --------------------------- | -------------------------- |
+| **O que você irá aprender**| Usando a [DogCEO API](https://dog.ceo/dog-api/), você irá carregar imagens de cães dinamicamente, ao invés de usar dados falsos.|
+| **Ferramentas que você irá usar**| Um navegador moderno como o Google Chrome. Caso esteja usando o Chrome, instale a extensão Vue.js DevTools. Uma conta em CodeSandbox.io. |
+| **Tempo estimado** | 1 hora|
 
-## Instructions
+## Instruções
 
-If you need to restart your project, clone [this repo](https://github.com/VueVixens/projects/tree/master/chapter-1-end) into Code Sandbox after logging in.
+Se você precisar reiniciar seu projeto, clone [este repositório](https://github.com/VueVixens/projects/tree/master/chapter-1-end) no Code Sandbox após efetuar o login.
 
-So far, we have placed images of dogs onto our screens via some static JSON data that we imported into a component. That's great for demo purposes, but in real life, you're almost always going to build web apps that consume real data that's coming from either your own data sources, or externally, from somewhere on the internet. Let's learn how to consume third-party data.
+Até agora, colocamos imagens de cães em nossas telas por meio de alguns dados JSON estáticos que importamos para um componente. Isso é ótimo para fins de demonstração, mas na vida real, você quase sempre criará aplicativos da Web que consomem dados reais provenientes de suas próprias fontes de dados, ou externamente, de algum lugar da Internet. Vamos aprender a consumir dados de terceiros.
 
-To perform API calls we will need a library called [axios](https://github.com/axios/axios). It's a promise-based HTTP client that works both in the browser and in a node.js environment.
+Para realizar chamadas de API, precisaremos de uma biblioteca chamada [axios](https://github.com/axios/axios). É um cliente HTTP baseado em [Promises](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Promise) que funciona no navegador e em um ambiente node.js.
 
-::: tip 💡
-Originally, Vue supported its own way of making API calls using .ajax; but this resource was deprecated as Axios's standalone library worked very well for this purpose, removing the need for an integrated solution. Read more about this decision [here](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4).
+::: dica 💡
+Originalmente, o Vue tinha sua própria maneira de fazer chamadas API usando ajax mas esse recurso foi preterido, pois a biblioteca independente do Axios funcionou muito bem para esse propósito, eliminando a necessidade de uma solução integrada. Leia mais sobre esta decisão [aqui](https://medium.com/the-vue-point/retiring-vue-resource-871a82880af4).
 :::
 
-## Add Axios
+## Adicionando o Axios
 
-First, add Axios's library to your project dependencies. To do so in Code Sandbox, click on `File Editor` tab -> `Dependencies` -> `Add Dependency` and search for `axios`
+Primeiro, adicione a biblioteca do Axios às dependências do seu projeto. Para fazer isso no Code Sandbox, clique na aba `File Editor` -> `Dependencies` -> `Add Dependency` e procure por `axios`
 
-Import axios into the component where we will perform our API call - `views/Pets.vue`. In that component's script block, add this line:
+Importe o Axios para o componente onde executaremos nossa chamada API - `views/Pets.vue`. No bloco de script desse componente, adicione esta linha:
 
 ```js
 import axios from "axios";
 ```
 
-All our calls will use the same base URL with different endpoints. Right under the import for axios, add the base URL to Axios' options:
+Todas as nossas chamadas usarão a mesma URL de base com diferentes endpoints. Logo abaixo da importação para os axios, adicione o URL base às opções do Axios:
 
 ```js
 axios.defaults.baseURL = "https://dog.ceo/api";
 ```
 
-Now we are ready to make our first API call.
+Agora estamos prontos para fazer nossa primeira chamada de API.
 
-## Call the API
+## Chamando a API
 
-Let's replace the first static image with the random Husky picture from the Dog CEO API. First we have to check which endpoint we have to use. Looking at the API's [documentation](https://dog.ceo/dog-api/) we can find out that we need to append `/breed/husky/images/random` to the base API call (the `api` part is already in our base URL).
+Vamos substituir a primeira imagem estática pela imagem aleatória de Husky da API Dog CEO. Primeiro temos que verificar qual endpoint nós temos que usar. Olhando para a documentação [da API](https://dog.ceo/dog-api/) podemos descobrir que precisamos acrescentar `/breed/husky/images/random` à chamada da API (a parte `api` já está na nossa URL base).
 
-We want a new image to replace the old one right when the component is created, so let's add a `created()` hook right after `data`:
+Queremos que uma nova imagem substitua a antiga corretamente quando o componente é criado, então vamos adicionar um hook `created ()` logo após `data`:
 
 ```js
 created() {}
 ```
 
 ::: tip 💡
-Note: Make sure to add a comma after the data object and then add the created() hook!
+Nota: Certifique-se de adicionar uma vírgula após o objeto de dados e, em seguida, adicione o `created ()`!
 :::
 
 ::: tip 💡
-This is our app's first livecycle hook! These are very useful when you want fine control over when to run blocks of code. Read more [here](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks)
+Este é o primeiro hook de lifecycle do nosso aplicativo! Estes são muito úteis quando você quer um bom controle sobre quando executar blocos de código. Leia mais [aqui](https://vuejs.org/v2/guide/instance.html#Instance-Lifecycle-Hooks)
 :::
 
-Inside the created hook we will add our first query to the API. To perform a GET request Axios uses the `axios.get` method. The result will be a JavaScript promise, so we have to provide success and failure callbacks to it. For now, let's simply print the query result to console. Edit `created(){}` by placing this snippet between the curly brackets:
+Dentro do hook criado, adicionaremos nossa primeira consulta à API. Para executar uma requisição GET, o Axios usa o método `axios.get`. O resultado será uma promise de JavaScript, portanto, temos que fornecer retornos de sucesso e falha a ela. Por enquanto, vamos simplesmente imprimir o resultado da consulta no console. Edite `created () {}` colocando este trecho entre as chaves:
 
 ```js
   axios
@@ -67,34 +67,34 @@ Inside the created hook we will add our first query to the API. To perform a GET
     });
 ```
 
-In the browser view in Code Sandbox, switch to the Pets tab. You should see an object in your console. Drill into it by clicking its left-hand arrow. We are interested in its `data` field. You can see we have a status `success` and a message with an image URL (you can copy/paste it to your browser and discover a cute Husky).
+Na visualização do navegador no Code Sandbox, vá para a guia Pets. Você deve ver um objeto no seu console. Dê uma olhada melhor clicando na seta à esquerda. Estamos interessadas ​​em seu campo `data`. Você pode ver que temos um status `success` e uma mensagem com um URL de imagem (você pode copiar/colar no seu navegador e descobrir um Husky bonito).
 
-## Use the API 1 - Replace Some of the Static Data
+## Use a API 1 - Substitua alguns dos dados estáticos
 
-Let's replace our Husky image with this new one. First, we should find a Husky in our dogs array with an `Array.find` method. It will check the `dogs` array items that we are already loading into the component from the `data/dogs.js` data file one by one to find the first item matching provided criteria. In our case the criteria is a `breed` equal to `husky`. Replace the `console.log()` inside the `then` callback in the Axios call we just implemented witt this string:
+Vamos substituir nossa imagem Husky por essa nova. Primeiro, devemos encontrar um Husky em nosso array de cães com um método `Array.find`. Ele irá verificar os itens do array `dogs` (que já estamos carregando no componente pelo arquivo de dados `data/dogs.js`) um por um para encontrar o primeiro item correspondente aos critérios fornecidos. No nosso caso, o critério é uma "raça" igual a "husky". Substitua o `console.log ()` dentro do callback `then` na chamada do Axios que acabamos de implementar por esta string:
 
 ```js
 const husky = this.dogs.find(dog => dog.breed === 'husky');
 console.log(husky);
 ```
 
-Ok, we have found a husky, which you can see in the `console.log()`. You can also see him in your app's Pets page - look for 'Max', listed as a husky. Now let's provide him with a new image by reassigning the image url from the static data to data coming from the API. Add this line under the snippet you just added.
+Ok, nós encontramos um husky que você pode ver no `console.log ()`. Você também pode vê-lo na página "Pets" do seu aplicativo. Procure "Max", listado como um husky. Agora vamos fornecer a ele uma nova imagem reatribuindo a URL da imagem dos dados estáticos pelos dados provenientes da API. Adicione esta linha abaixo do trecho que você acabou de adicionar.
 
 ```js
 husky.img = response.data.message;
 ```
 
-You should see the image change to a random husky image pulled from the Dog CEO API.
+Você deve ver a imagem mudar para uma imagem aleatória de um husky extraída da API Dog CEO.
 
-## Use the API 2- Randomize the Images
+## Use a API 2 - Randomize as Imagens
 
-Let's try to load a random image for each dog in our `dogs` array. The first thing we need is a proper endpoint for each breed we have. We will create an array of links using the `.map` method.
+Vamos tentar carregar uma imagem aleatória para cada cachorro em nosso array `dogs`. A primeira coisa que precisamos é de um endpoint adequado para cada raça que temos. Vamos criar um array de links usando o método `.map`.
 
-::: tip 💡
-The `map()` method creates a new array with the results of calling a provided function on every element in the calling array.
+::: dica 💡
+O método `.map()` cria um novo array com os resultados de uma função, aplicada a cada elemento do array original.
 :::
 
-Overwrite the code in the `Created()`...`.then` by creating this linksArray constant:
+Sobrescreva todo o código no `Created ()` criando esta constante de linksArray:
 
 ```js
 const linksArray = this.dogs.map(
@@ -102,9 +102,9 @@ const linksArray = this.dogs.map(
 );
 ```
 
-We're taking the breed of each dog in the array and inserting it inside the endpoint string (we used the same one previously for husky, but `breed` was hard-coded to a static value there).
+Estamos pegando a raça de cada cão no array e inserindo-o dentro da string do endpoint que iremos chamar (usamos o mesmo anteriormente para o husky, mas `breed` foi usado como um valor estático lá).
 
-At this point, we have to perform multiple API calls using all the links we've just created - as many API calls as exist in our static data. Axios has a helper functions for this case called `axios.all` and `axios.spread`. We will provide an array of our requests to the first one; it will return an array of responses and we should use `axios.spread` to spread this array into multiple arguments. To create an array of queries we will use a `.map` method on our `linksArray`, performing `axios.get` for each link. Add this snippet right under the linksArray snippet you added just before.
+Neste ponto, temos que executar várias chamadas de API usando todos os links que acabamos de criar - tantas chamadas de API quanto existem em nossos dados estáticos. O Axios tem uma função auxiliar para este caso chamada `axios.all` e `axios.spread`. Nós forneceremos uma série de nossos pedidos para `axios.all`, que retornará uma matriz de respostas e devemos usar o `axios.spread` para "espalhar" este array em múltiplos argumentos. Para criar uma matriz de consultas, usaremos um método `.map` em nosso `linksArray`, executando `axios.get` para cada link. Adicione este snippet diretamente abaixo do snippet linksArray adicionado pouco antes.
 
 ```js
 axios.all(linksArray.map(link => axios.get(link)))
@@ -118,12 +118,12 @@ axios.all(linksArray.map(link => axios.get(link)))
 ```
 
 ::: tip 💡
-What's going on here? The forEach() method executes a provided function once for each array element in linksArray. It's basically looping through the static data and adding a random image to `this.dogs`. So, after we've got an array of images in response, we are iterating through our `dogs` array again, replacing each dog image with a corresponding new one from the API (`index` is the index of the current element being processed in the array; it is the same for both arrays because response objects are placed in the same order they were sent).
+O que esta acontecendo aqui? O método `forEach()` executa uma função fornecida uma vez para cada elemento do array em linksArray. Basicamente, ele passa pelos dados estáticos e adiciona uma das imagem aleatórias da API a `this.dogs`, assim que tivermos a resposta da nossa API. Então nós estamos substituindo cada imagem de cão qe temos originalmente por uma nova correspondente da API (`index` é o índice do elemento atual sendo processado no array, é o mesmo para os dois arrays porque os objetos de resposta são colocados na mesma ordem em que foram enviados).
 :::
 
-Now we have new images each time our `Pets` component is created (you can see the images change on page refresh or simply by switching the tabs from `pets` to `home` and back). The dogs' names and breeds are still being drawn from static data, but the images are coming from the API, matched with the static dog's breed.
+Agora temos novas imagens toda vez que nosso componente `Pets` é criado (você pode ver as imagens mudarem na atualização da página ou simplesmente mudando as abas de `pets` para `home` e vice-versa). Os nomes e raças dos cães ainda estão sendo extraídos de dados estáticos, mas as imagens são provenientes da API, combinadas com a raça do cão estático.
 
-The only remaining problem is that we can still see old images for a short moment when we enter the pets tab. Let's clear the dogs images before we perform a query. Add this string as the first one inside the `created()` hook:
+O único problema remanescente é que ainda podemos ver as imagens antigas por um breve momento quando entramos na página Pets. Vamos limpar as imagens dos cachorros antes de realizarmos uma consulta. Adicione esta string como a primeira dentro do hook `created ()`:
 
 ```js
 this.dogs.forEach(dog => {
@@ -131,7 +131,7 @@ this.dogs.forEach(dog => {
 });
 ```
 
-**Now we initially see empty dog portraits and then images are loaded from the API. Progress!**
+**Agora, inicialmente, vemos retratos vazios de cachorros e, em seguida, as imagens são carregadas a partir da API. Progresso!**
 
-# Final result
+# Resultado final
 ![chapter 3 result](./images/petshop_chapter3.jpg)
